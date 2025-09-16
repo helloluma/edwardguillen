@@ -104,7 +104,7 @@ const Footer = () => {
                   <h3>Visuals</h3>
                 </a>
                 <a
-                  href="https://edwardguillen.com/articles/"
+                  href="https://articles.edwardguillen.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -253,6 +253,15 @@ const Nav = () => {
               </div>
               <div className="link">
                 <a
+                  href="https://articles.edwardguillen.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <h2>Articles</h2>
+                </a>
+              </div>
+              <div className="link">
+                <a
                   href="https://dribbble.com/edwardguillen"
                   target="_blank"
                   rel="noopener noreferrer"
