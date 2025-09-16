@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnOctave Tipping System Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.4;
+        }
+        
+        .wireframe-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .screen {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .screen-title {
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 6px 6px 0 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .video-container {
+            border: 2px solid #ccc;
+            height: 200px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        
+        .nav-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+        }
+        
+        .tip-button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .balance-display {
+            background: #e8f4f8;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .modal {
+            border: 3px solid #333;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .amount-btn {
+            border: 2px solid #ddd;
+            background: white;
+            padding: 12px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .amount-btn.selected {
+            border-color: #ff6b35;
+            background: #fff5f3;
+        }
+        
+        .custom-input {
+            border: 2px solid #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .primary-btn {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        
+        .secondary-btn {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #ddd;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .apple-pay {
+            background: #000;
+            color: white;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            margin: 20px 0;
+        }
+        
+        .artist-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+        
+        .recent-tips {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>OnOctave Tipping System - User Flow Wireframes</h1>
+    
+    <div class="wireframe-container">
+        
+        <!-- 1. Main Video Feed with Tip Button -->
+        <div class="screen">
+            <div class="screen-title">1. Video Feed - Entry Point</div>
+            <div class="video-container">
+                <div style="text-align: center; color: #666;">
+                    🎵 Artist Video Content<br>
+                    Currently Playing
+                </div>
+            </div>
+            <div class="artist-info">
+                <div class="avatar"></div>
+                <div>
+                    <strong>Artist Name</strong><br>
+                    <small>Song Title</small>
+                </div>
+            </div>
+            <div class="balance-display">
+                💰 Your Balance: $15.50
+            </div>
+            <div class="nav-section">
+                <div>♡ 1.2k  💬 89  🔄 45</div>
+                <button class="tip-button">💸 Tip Artist</button>
+            </div>
+        </div>
+        
+        <!-- 2. New User Tip Selection -->
+        <div class="screen">
+            <div class="screen-title">2A. Tip Selection - New User</div>
+            <div class="modal">
+                <h3>💝 Tip This Artist</h3>
+                <div class="artist-info">
+                    <div class="avatar"></div>
+                    <div><strong>Artist Name</strong></div>
+                </div>
+                
+                <p><strong>Suggested Amounts:</strong></p>
+                <div class="amount-grid">
+                    <div class="amount-btn">$0.50</div>
+                    <div class="amount-btn selected">$0.75</div>
+                    <div class="amount-btn">$1.00</div>
+                    <div class="amount-btn">$5.00</div>
+                    <div class="amount-btn">$7.00</div>
+                    <div class="amount-btn">$10.00</div>
+                </div>
+                
+                <p><strong>Or enter custom amount:</strong></p>
+                <input type="text" class="custom-input" placeholder="Enter amount (e.g. 2.50)">
+                
+                <button class="primary-btn">Tip Artist $0.75</button>
+                <button class="secondary-btn">Cancel</button>
+            </div>
+        </div>
+        
+        <!-- 3. Returning User Tip Selection -->
+        <div class="screen">
+            <div class="screen-title">2B. Tip Selection - Returning User</div>
+            <div class="modal">
+                <h3>💝 Tip This Artist</h3>
+                <div class="artist-info">
+                    <div class="avatar"></div>
+                    <div><strong>Artist Name</strong></div>
+                </div>
+                
+                <div class="recent-tips">
+                    <p><strong>Your Recent Tips:</strong></p>
+                    <div class="amount-grid">
+                        <div class="amount-btn">$1.00</div>
+                        <div class="amount-btn selected">$2.50</div>
+                        <div class="amount-btn">$0.75</div>
+                    </div>
+                </div>
+                
+                <p><strong>Or enter custom amount:</strong></p>
+                <input type="text" class="custom-input" placeholder="Enter amount (e.g. 2.50)">
+                
+                <button class="primary-btn">Tip Artist $2.50</button>
+                <button class="secondary-btn">Cancel</button>
+            </div>
+        </div>
+        
+        <!-- 4. Insufficient Balance Warning -->
+        <div class="screen">
+            <div class="screen-title">3. Insufficient Balance Warning</div>
+            <div class="modal">
+                <h3>⚠️ Insufficient Balance</h3>
+                
+                <div class="warning">
+                    You're trying to tip <strong>$5.00</strong><br>
+                    Your current balance: <strong>$3.25</strong>
+                </div>
+                
+                <p>What would you like to do?</p>
+                
+                <button class="primary-btn">Add $20 to Balance</button>
+                <button class="secondary-btn">Try Different Amount</button>
+                <button class="secondary-btn">Learn About Topping Up</button>
+                <button class="secondary-btn">Cancel</button>
+            </div>
+        </div>
+        
+        <!-- 5. Add Funds Flow -->
+        <div class="screen">
+            <div class="screen-title">4. Add Funds - Top-Up</div>
+            <div class="modal">
+                <h3>💳 Add Funds to Balance</h3>
+                
+                <div class="balance-display">
+                    Current Balance: $3.25
+                </div>
+                
+                <p><strong>Standard Top-Up Amount:</strong></p>
+                <div style="border: 2px solid #ff6b35; padding: 15px; border-radius: 6px; text-align: center; margin: 15px 0;">
+                    <strong style="font-size: 18px;">+$20.00</strong><br>
+                    <small>New Balance: $23.25</small>
+                </div>
+                
+                <div class="apple-pay">
+                    🍎 Pay with Apple Pay
+                </div>
+                
+                <div style="text-align: center; margin: 10px 0; color: #666;">
+                    - or -
+                </div>
+                
+                <button class="secondary-btn">💳 Credit/Debit Card</button>
+                <button class="secondary-btn">Cancel</button>
+                
+                <div style="font-size: 12px; color: #666; text-align: center; margin-top: 15px;">
+                    🔒 Payments secured by Stripe
+                </div>
+            </div>
+        </div>
+        
+        <!-- 6. Processing State -->
+        <div class="screen">
+            <div class="screen-title">5. Processing Payment</div>
+            <div class="modal">
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">⏳</div>
+                    <h3>Processing Payment...</h3>
+                    <p>Please wait while we add funds to your balance.</p>
+                    
+                    <div style="background: #f0f0f0; height: 6px; border-radius: 3px; margin: 20px 0;">
+                        <div style="background: #ff6b35; height: 6px; border-radius: 3px; width: 60%; animation: pulse 1s infinite;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 7. Top-Up Success -->
+        <div class="screen">
+            <div class="screen-title">6. Top-Up Success</div>
+            <div class="modal">
+                <div class="success">
+                    <div style="font-size: 48px; margin-bottom: 15px;">✅</div>
+                    <h3>Funds Added Successfully!</h3>
+                    <p>$20.00 has been added to your balance</p>
+                </div>
+                
+                <div class="balance-display">
+                    <strong>New Balance: $23.25</strong>
+                </div>
+                
+                <button class="primary-btn">Continue with Tip ($5.00)</button>
+                <button class="secondary-btn">Return to Video</button>
+            </div>
+        </div>
+        
+        <!-- 8. Tip Processing -->
+        <div class="screen">
+            <div class="screen-title">7. Processing Tip</div>
+            <div class="modal">
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">💸</div>
+                    <h3>Sending Tip...</h3>
+                    <p>Sending $5.00 to Artist Name</p>
+                    
+                    <div style="background: #f0f0f0; height: 6px; border-radius: 3px; margin: 20px 0;">
+                        <div style="background: #ff6b35; height: 6px; border-radius: 3px; width: 80%; animation: pulse 1s infinite;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 9. Tip Success -->
+        <div class="screen">
+            <div class="screen-title">8. Tip Success</div>
+            <div class="modal">
+                <div class="success">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🎉</div>
+                    <h3>Whoohoo!</h3>
+                    <p>You successfully tipped <strong>$5.00</strong> to Artist Name!</p>
+                </div>
+                
+                <div class="balance-display">
+                    Updated Balance: $18.25
+                </div>
+                
+                <button class="primary-btn">Tip Again</button>
+                <button class="secondary-btn">Return to Video</button>
+                
+                <div style="text-align: center; margin-top: 15px; color: #666; font-size: 14px;">
+                    Thank you for supporting artists! 💜
+                </div>
+            </div>
+        </div>
+        
+        <!-- 10. Low Balance Notification -->
+        <div class="screen">
+            <div class="screen-title">9. Low Balance Notification</div>
+            <div style="position: relative;">
+                <div class="video-container">
+                    <div style="text-align: center; color: #666;">
+                        🎵 Artist Video Content<br>
+                        Currently Playing
+                    </div>
+                </div>
+                
+                <div style="position: absolute; top: 10px; right: 10px; background: #ff6b35; color: white; padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+                    ⚠️ Low Balance: $2.15
+                </div>
+                
+                <div class="warning">
+                    <strong>💰 Balance Running Low</strong><br>
+                    You have $2.15 remaining. Consider adding funds to continue tipping artists.
+                    <button class="tip-button" style="margin-top: 10px; font-size: 12px;">Top Up Now</button>
+                </div>
+                
+                <div class="nav-section">
+                    <div>♡ 1.2k  💬 89  🔄 45</div>
+                    <button class="tip-button">💸 Tip Artist</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 11. Error State -->
+        <div class="screen">
+            <div class="screen-title">10. Error Handling</div>
+            <div class="modal">
+                <div class="error">
+                    <div style="font-size: 36px; text-align: center; margin-bottom: 15px;">❌</div>
+                    <h3>Transaction Failed</h3>
+                    <p>We couldn't process your tip. This might be due to a network issue or payment processing error.</p>
+                </div>
+                
+                <div class="balance-display">
+                    Your Balance: $18.25<br>
+                    <small>(No charges were made)</small>
+                </div>
+                
+                <button class="primary-btn">Try Again</button>
+                <button class="secondary-btn">Different Amount</button>
+                <button class="secondary-btn">Contact Support</button>
+                <button class="secondary-btn">Return to Video</button>
+                
+                <div style="font-size: 12px; color: #666; text-align: center; margin-top: 15px;">
+                    Error Code: TIP_001 | Report Issue
+                </div>
+            </div>
+        </div>
+        
+        <!-- 12. Learn About System -->
+        <div class="screen">
+            <div class="screen-title">11. Learn About Tipping System</div>
+            <div class="modal">
+                <h3>💡 How OnOctave Tipping Works</h3>
+                
+                <div style="margin: 15px 0;">
+                    <strong>🏦 Pre-loaded Balance</strong><br>
+                    <small>Add $20 to your OnOctave balance for instant micro-transactions</small>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <strong>⚡ Instant Tips</strong><br>
+                    <small>Send tips immediately while watching content - no payment delays</small>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <strong>💰 Support Artists</strong><br>
+                    <small>100% of your tip goes directly to the artist (minus processing fees)</small>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <strong>🔒 Secure Payments</strong><br>
+                    <small>All transactions protected by enterprise-grade security</small>
+                </div>
+                
+                <button class="primary-btn">Add $20 to Get Started</button>
+                <button class="secondary-btn">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</body>
+</html>

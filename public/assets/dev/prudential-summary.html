@@ -1,0 +1,2598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Review Checkout - Final Look</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 
+        ==========================
+        Hybrid Review Checkout CSS
+        ==========================
+        */
+        :root {
+            --primary-red: #cc0033;
+            --primary-blue: #106cb7;
+            --secondary-blue: #09589c;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --background-light: #f8f9fa;
+            --border-light: #e9ecef;
+            --success-green: #198754;
+        }
+
+        /* Basic ADA Compliance Styles */
+        *:focus {
+            outline: 2px solid #005fcc;
+            outline-offset: 2px;
+        }
+
+        /* Enhanced color contrast for text */
+        .detail-label {
+            color: #444444;
+        }
+
+        .legal-notice {
+            color: #444444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .main-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .main-subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 48px;
+        }
+
+        .review-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Left Column - Policy Details */
+        .policy-section {
+            background: white;
+        }
+
+        .section-block {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .edit-link {
+            color: var(--primary-blue);
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .edit-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(16, 108, 183, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+        }
+
+        .edit-link:hover::before {
+            width: 120px;
+            height: 120px;
+        }
+
+        .edit-link:hover {
+            color: var(--secondary-blue);
+        }
+
+        .policy-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Member Row Layout */
+        .member-row {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .member-info {
+            width: 100%;
+        }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 6px 0;
+        }
+
+        .member-contact span {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Children Section Styling */
+        .children-section {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 14px 16px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .children-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .children-icon {
+            color: var(--primary-blue);
+            font-size: 16px;
+        }
+
+        .children-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .children-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            background: rgba(16, 108, 183, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .member-row {
+                padding: 14px;
+            }
+            
+            .member-name {
+                font-size: 15px;
+            }
+            
+            .member-contact span {
+                font-size: 13px;
+            }
+            
+            .children-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px 14px;
+            }
+            
+            .children-info {
+                align-self: stretch;
+                justify-content: flex-start;
+            }
+            
+            .children-value {
+                align-self: flex-end;
+            }
+        }
+        /* Member Row Layout End */
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: default;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .detail-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(16, 108, 183, 0.08), transparent);
+            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .detail-row:hover::before {
+            /* removed hover effect */
+        }
+
+        .detail-row:hover {
+            /* removed hover effect */
+        }
+
+        .detail-row:focus {
+            outline: 2px solid #005fcc;
+            outline-offset: 2px;
+            background-color: rgba(16, 108, 183, 0.05);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-value {
+            color: #333;
+            font-weight: 500 !important;
+            text-align: right;
+            font-size: 14px;
+        }
+        .detail-value .detail-secondary {
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .detail-value {
+                font-size: 12px;
+            }
+        }
+
+        .highlight-value {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .beneficiary-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .beneficiary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .beneficiary-item:last-child {
+            border-bottom: none;
+        }
+
+        .beneficiary-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .beneficiary-icon {
+            color: var(--primary-blue);
+            font-size: 14px;
+        }
+
+        .beneficiary-percentage {
+            background: var(--primary-blue);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .no-beneficiaries-compact {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .no-beneficiaries-content {
+            flex: 1;
+        }
+
+        .no-beneficiaries-title-compact {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 4px 0;
+        }
+
+        .no-beneficiaries-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .add-beneficiary-btn-compact {
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-beneficiary-btn-compact::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .add-beneficiary-btn-compact:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .add-beneficiary-btn-compact:hover {
+            background: #555;
+        }
+
+        .add-beneficiary-btn-compact:focus {
+            outline: 2px solid #005fcc;
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .no-beneficiaries-compact {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 16px;
+            }
+            
+            .no-beneficiaries-title-compact {
+                font-size: 15px;
+            }
+            
+            .no-beneficiaries-subtitle {
+                font-size: 13px;
+            }
+            
+            .add-beneficiary-btn-compact {
+                align-self: stretch;
+                text-align: center;
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .no-beneficiaries-compact {
+                padding: 14px;
+            }
+        }
+
+        .beneficiary-grid {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .beneficiary-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .beneficiary-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .beneficiary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .beneficiary-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .beneficiary-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(16, 108, 183, 0.05), transparent);
+            transform: rotate(0deg);
+            transition: transform 0.6s ease;
+            opacity: 0;
+        }
+
+        .beneficiary-card:hover::before {
+            /* removed hover effect */
+        }
+
+        .beneficiary-card:hover {
+            /* removed hover effect */
+        }
+
+        .beneficiary-card-icon {
+            color: var(--primary-blue);
+            font-size: 20px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .beneficiary-card-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        .beneficiary-card-relationship {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .beneficiary-card-percentage {
+            background: var(--primary-blue);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contingent-card .beneficiary-card-percentage {
+            background: #6c757d;
+        }
+
+        .empty-beneficiary-slot {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .empty-beneficiary-slot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(16, 108, 183, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .empty-beneficiary-slot:hover::before {
+            width: 150px;
+            height: 150px;
+        }
+
+        .empty-beneficiary-slot:hover {
+            border-color: var(--primary-blue);
+            background: rgba(16, 108, 183, 0.05);
+            transform: scale(1.02);
+        }
+
+        .empty-beneficiary-slot:focus {
+            outline: 2px solid #005fcc;
+            outline-offset: 2px;
+            border-color: var(--primary-blue);
+            background: rgba(16, 108, 183, 0.05);
+        }
+
+        .empty-slot-icon {
+            color: #adb5bd;
+            font-size: 16px;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .empty-slot-text {
+            font-size: 11px;
+            color: #6c757d;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 992px) {
+            .beneficiary-row {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .beneficiary-grid {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .beneficiary-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .beneficiary-card,
+            .empty-beneficiary-slot {
+                padding: 16px;
+                min-height: auto;
+            }
+            
+            .beneficiary-card-name {
+                font-size: 14px;
+            }
+            
+            .beneficiary-card-relationship {
+                font-size: 12px;
+            }
+            
+            .beneficiary-card-percentage {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+            
+            .beneficiary-grid {
+                padding: 12px;
+            }
+        }
+
+        .coverage-summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        /* Dynamic grid based on number of policies */
+        .coverage-grid:has(.coverage-item:only-child) {
+            grid-template-columns: 1fr;
+        }
+
+        /* Fallback for browsers that don't support :has() */
+        .coverage-grid.single-policy {
+            grid-template-columns: 1fr;
+        }
+
+        .coverage-item {
+            text-align: center;
+            padding: 16px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e0e4ea;
+            box-shadow: none;
+            cursor: default;
+            transition: border 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Remove hover/active/focus effects */
+        .coverage-item:hover,
+        .coverage-item:focus {
+            border: 1.5px solid #bfc5d2;
+            box-shadow: none;
+            transform: none;
+        }
+        .coverage-item::before {
+            display: none !important;
+        }
+
+        .coverage-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .coverage-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-top: 8px;
+        }
+
+        /* Right Column - Checkout */
+        .checkout-section {
+            background: #F2F8FF;
+            border-radius: 16px;
+            padding: 32px;
+            position: sticky;
+            top: 32px;
+            border: 1px solid #D3E9FF;
+        }
+
+        .checkout-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .checkout-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .payment-method-section {
+            margin-bottom: 32px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .payment-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-option::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(16, 108, 183, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .payment-option:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .payment-option:focus {
+            outline: 2px solid #005fcc;
+            outline-offset: 2px;
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-blue);
+            background: rgba(16, 108, 183, 0.05);
+            outline: 2px solid var(--primary-blue);
+            outline-offset: -2px;
+        }
+
+        .payment-option-icon {
+            font-size: 24px;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-option-label {
+            font-weight: 600;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .form-label {
+            font-weight: 400;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 15px;
+            margin-top: 6px;
+        }
+
+        h3.form-label {
+            font-weight: 600;
+        }
+
+        .spacer {
+            color: #333;
+            font-weight: 400;
+            font-size: 15px;
+            margin-top: 6px;
+        }
+
+        .form-control {
+            border: 1.75px solid #7F8489 !important;
+            padding: 5px;
+            border-radius: 0.375rem;
+            background-color: #FFF;
+            height: 50px !important;
+            font-size: 16px;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-control:hover {
+            border-color: #7F8489;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-control:focus {
+            border: 2px solid #3e7fc9 !important;
+            padding: 5px;
+            border-radius: 0.375rem;
+            outline-offset: -2px;
+            box-shadow: 0 0 0 0.25rem rgba(0, 95, 204, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .form-control.inerror {
+            border-color: #dc3545;
+            padding-right: calc(1.5em + 20px);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + 12px) center;
+            background-size: calc(.75em + 6px) calc(.75em + 6px);
+        }
+
+        .form-control.valid {
+            border-color: #198754;
+            padding-right: calc(1.5em + 20px);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + 12px) center;
+            background-size: calc(.75em + 6px) calc(.75em + 6px);
+        }
+
+        .optional .form-control.valid {
+            background-image: none;
+            border-color: #7F8489;
+        }
+
+        .total-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            border: 2px solid #e4e7ea;
+            box-shadow: 0 4px 12px rgba(16, 108, 183, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .total-summary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(16, 108, 183, 0.03), transparent);
+            transform: translateX(100%);
+            transition: transform 0.6s ease;
+        }
+
+        .total-summary:hover::before {
+            /* removed hover effect */
+        }
+
+        .total-summary:hover {
+            /* removed hover effect */
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 19px;
+            color: #333;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e9ecef;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-line.total {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-blue);
+            padding-top: 8px;
+            border-top: 1px solid #e9ecef;
+        }
+        .summary-line.total {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-blue);
+            padding-top: 8px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Enhanced Payment Summary Breakdown */
+        .policy-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e9ecef;
+            position: relative;
+            z-index: 1;
+        }
+
+        .policy-group {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 10px;
+        }
+
+        .policy-group-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .policy-member-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .policy-member-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-member-details {
+            flex: 1;
+            margin-right: 12px;
+        }
+
+        .policy-member-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .policy-coverage-amount {
+            color: #666;
+            font-weight: 400;
+        }
+
+        .policy-member-cost {
+            font-weight: 600;
+            color: var(--primary-blue);
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .policy-group-total {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .policy-group-total-amount {
+            color: var(--primary-blue);
+            font-size: 15px;
+        }
+
+        /* Responsive adjustments for enhanced breakdown */
+        @media (max-width: 768px) {
+            .policy-member-line {
+                flex-direction: column;
+                gap: 4px;
+                align-items: flex-start;
+            }
+            
+            .policy-member-details {
+                margin-right: 0;
+                max-width: 100%;
+                overflow: hidden;
+            }
+            
+            .policy-member-name {
+                font-weight: 600;
+                color: #333;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+            
+            .policy-coverage-amount {
+                color: #666;
+                font-weight: 500;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+            
+            .policy-member-cost {
+                align-self: flex-end;
+                font-size: 13px;
+            }
+            
+            .policy-group-title {
+                font-size: 14px;
+            }
+            
+            .policy-group {
+                padding: 12px;
+            }
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-red) 0%, #a8002a 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(204, 0, 51, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-btn:disabled::before {
+            display: none;
+        }
+
+        .legal-notice {
+            font-size: 13px;
+            line-height: 1.4;
+            text-align: center;
+            margin-top: 16px;
+            margin-bottom: 15px;
+        }
+
+        .legal-notice a {
+            color: var(--primary-blue);
+            text-decoration: underline;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .legal-notice a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+
+        .legal-notice a:hover::before {
+            width: 100%;
+        }
+
+        .legal-notice a:hover {
+            color: var(--secondary-blue);
+        }
+
+        @media (max-width: 992px) {
+            .review-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .checkout-section {
+                position: static;
+            }
+
+            .main-container {
+                padding: 16px;
+            }
+
+            .main-title {
+                font-size: 29px;
+            }
+
+            .coverage-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+
+        .text-muted {
+            margin-top: 12px !important;
+            display: block;
+        }
+
+        /* Mobile-specific styles */
+        .desktop-only {
+            display: block;
+        }
+        
+        .mobile-only {
+            display: none;
+        }
+        
+        .policy-member-line-mobile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none;
+            }
+            
+            .mobile-only {
+                display: block;
+            }
+        }
+
+        /* Sticky Footer for Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 100px; /* Space for sticky footer */
+            }
+            
+            .sticky-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 16px 20px;
+                border-top: 1px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+            }
+            
+            .sticky-footer.hidden {
+                transform: translateY(100%);
+            }
+            
+            .sticky-footer .submit-btn {
+                margin: 0;
+                width: 100%;
+                background: #ccc;
+                color: #666;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+                transition: all 0.3s ease;
+            }
+            
+            .sticky-footer .submit-btn.enabled {
+                background: linear-gradient(135deg, var(--primary-red) 0%, #a8002a 100%);
+                color: white;
+                cursor: pointer;
+            }
+            
+            .sticky-footer .submit-btn.enabled:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(204, 0, 51, 0.3);
+            }
+            
+            /* Hide original submit button on mobile */
+            .checkout-section .submit-btn {
+                display: none;
+            }
+            
+            /* Progress indicator */
+            .scroll-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 3px;
+                background: var(--primary-blue);
+                transition: width 0.1s ease;
+                z-index: 1001;
+            }
+        }
+
+        /* Desktop - keep original behavior */
+        @media (min-width: 769px) {
+            .sticky-footer {
+                display: none;
+            }
+        }
+
+        /* 
+        =================================
+        🎯 CUSTOM ADDITIONS BY ASSISTANT
+        =================================
+        */
+        
+        /* 
+        =================================
+        ✅ START: Billing Frequency Section CSS
+        📝 Added: Material Design radio buttons for billing frequency selection
+        🎨 Features: 2-column grid, Material ripple effects, responsive design
+        =================================
+        */
+        
+        .billing-frequency-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .billing-frequency-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 8px 0;
+            line-height: 1.3;
+        }
+        
+        .billing-frequency-subtitle {
+            font-size: 16px;
+            color: var(--primary-blue);
+            margin: 0 0 20px 0;
+            font-weight: 500;
+        }
+        
+        .billing-frequency-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .billing-frequency-check {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        
+        .billing-frequency-check:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 108, 183, 0.15);
+        }
+        
+        .billing-frequency-check:has(.billing-frequency-input:checked) {
+            border-color: var(--primary-blue);
+            background: rgba(16, 108, 183, 0.05);
+            box-shadow: 0 4px 12px rgba(16, 108, 183, 0.15);
+        }
+        
+        .billing-frequency-input {
+            display: none;
+        }
+        
+        .billing-frequency-label {
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            user-select: none;
+        }
+        
+        .billing-frequency-check:has(.billing-frequency-input:checked) .billing-frequency-label {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        /* Material Radio Styles */
+        .material-radio {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+        }
+        .material-radio-outer {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #bfc5d2;
+            border-radius: 50%;
+            background: #fff;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .billing-frequency-check:has(.billing-frequency-input:checked) .material-radio-outer {
+            border-color: var(--primary-blue);
+        }
+        .material-radio-inner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .billing-frequency-check:has(.billing-frequency-input:checked) .material-radio-inner {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .material-radio-ripple {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 36px;
+            height: 36px;
+            background: rgba(16, 108, 183, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .billing-frequency-check:active .material-radio-ripple {
+            animation: material-radio-ripple-anim 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes material-radio-ripple-anim {
+            0% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(0.2);
+            }
+            60% {
+                opacity: 0.2;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .billing-frequency-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .billing-frequency-title {
+                font-size: 18px;
+            }
+            .billing-frequency-subtitle {
+                font-size: 15px;
+                margin-bottom: 16px;
+            }
+            .billing-frequency-options {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .billing-frequency-check {
+                padding: 14px 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .billing-frequency-section {
+                padding: 16px;
+            }
+            .billing-frequency-title {
+                font-size: 16px;
+            }
+            .billing-frequency-subtitle {
+                font-size: 14px;
+            }
+            .billing-frequency-check {
+                padding: 12px 14px;
+            }
+        }
+        /* 
+        =================================
+        ✅ END: Billing Frequency Section CSS
+        =================================
+        */
+
+        /* 
+        =================================
+        ✅ START: Legal Notice Modals CSS  
+        📝 Added: Bootstrap 5 modal styling for legal documents
+        🎨 Features: Blue gradient headers, responsive design, smooth animations
+        =================================
+        */
+        
+        /* Modal Enhancements */
+        .modal-content {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            padding: 20px 24px;
+            border-bottom: none;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            font-size: 20px;
+            margin: 0;
+        }
+        
+        .modal-header .btn-close {
+            background: none;
+            border: none;
+            color: white;
+            opacity: 0.8;
+            font-size: 18px;
+            margin: 0;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-header .btn-close:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .modal-body {
+            padding: 24px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .modal-body h6 {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 0 12px 0;
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 12px;
+        }
+        
+        .modal-body h6:first-child {
+            margin-top: 0;
+        }
+        
+        .modal-body p {
+            margin-bottom: 16px;
+            color: #555;
+        }
+        
+        .modal-body ul {
+            margin: 12px 0 16px 20px;
+            padding: 0;
+        }
+        
+        .modal-body li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .modal-footer {
+            padding: 16px 24px 24px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .modal-footer .btn {
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-footer .btn-secondary {
+            background: #6c757d;
+            border-color: #6c757d;
+        }
+        
+        .modal-footer .btn-secondary:hover {
+            background: #5a6268;
+            border-color: #545b62;
+            transform: translateY(-1px);
+        }
+        
+        /* Legal Notice Link Styling */
+        .legal-notice a {
+            color: var(--primary-blue);
+            text-decoration: underline;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .legal-notice a:hover {
+            color: var(--secondary-blue);
+            text-decoration: none;
+        }
+        
+        .legal-notice a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .legal-notice a:hover::after {
+            width: 100%;
+        }
+        
+        /* Responsive Modal Adjustments */
+        @media (max-width: 768px) {
+            .modal-dialog {
+                margin: 16px;
+                max-width: calc(100vw - 32px);
+            }
+            
+            .modal-content {
+                border-radius: 12px;
+            }
+            
+            .modal-header {
+                padding: 16px 20px;
+                border-top-left-radius: 12px;
+                border-top-right-radius: 12px;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+                max-height: 60vh;
+                overflow-y: auto;
+            }
+            
+            .modal-body h6 {
+                font-size: 15px;
+                margin: 16px 0 10px 0;
+            }
+            
+            .modal-footer {
+                padding: 12px 20px 20px;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modal-dialog {
+                margin: 8px;
+                max-width: calc(100vw - 16px);
+            }
+            
+            .modal-body {
+                padding: 16px;
+                font-size: 14px;
+            }
+            
+            .modal-body h6 {
+                font-size: 14px;
+                margin: 14px 0 8px 0;
+            }
+            
+            .modal-header {
+                padding: 14px 16px;
+            }
+            
+            .modal-title {
+                font-size: 16px;
+            }
+            
+            .modal-footer {
+                padding: 10px 16px 16px;
+            }
+        }
+        
+        /* Backdrop Enhancement */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        
+        /* Scrollable Modal Body */
+        .modal-dialog-scrollable .modal-body {
+            overflow-y: auto;
+        }
+        
+        /* Animation Enhancement */
+        .modal.fade .modal-dialog {
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            transform: translate(0, -50px) scale(0.95);
+        }
+        
+        .modal.show .modal-dialog {
+            transform: translate(0, 0) scale(1);
+        }
+        
+        /* Modal Scroll Reset - Ensures modals always open at the top */
+        .modal-body {
+            scroll-behavior: smooth;
+        }
+        
+        /* Force modal content to start at top */
+        .modal.show .modal-body {
+            scroll-top: 0;
+        }
+        
+        /* 
+        =================================
+        ✅ END: Legal Notice Modals CSS
+        =================================
+        */
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <h1 class="main-title">Let's take a final look</h1>
+        <p class="main-subtitle">Review your coverage details and complete your application</p>
+        
+        <div class="review-layout">
+            <!-- Left Column - Policy Details -->
+            <div class="policy-section">
+                
+<!-- Coverage Summary -->
+<div class="section-block">
+    <div class="section-header">
+        <h3 class="section-title">Your Insurance Coverage</h3>
+        <button class="edit-link" aria-label="Edit insurance coverage">Edit</button>
+    </div>
+    <div class="coverage-summary">
+        <div class="policy-details">
+            <div class="detail-row">
+                <span class="detail-label">Term Life and AD&amp;D</span>
+                <span class="detail-value">$535,000</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Critical Illness</span>
+                <span class="detail-value">$60,000</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Member Information -->
+    <div class="section-block">
+        <div class="section-header">
+            <h3 class="section-title">Member Information</h3>
+            <button class="edit-link" aria-label="Edit member information">Edit</button>
+        </div>
+        <div class="policy-details">
+            <div class="detail-row">
+                <span class="detail-label">Primary Member</span>
+                <span class="detail-value"><strong>John Doe</strong> <span class="detail-secondary">(01/01/1999)  •  johndoe@gmail.com</span></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Spouse</span>
+                <span class="detail-value"><strong>Jane Doe</strong> <span class="detail-secondary">(01/01/1983)</span></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Children Covered</span>
+                <span class="detail-value">2 children</span>
+            </div>
+        </div>
+    </div> 
+
+
+<!-- Beneficiaries -->
+<div class="section-block">
+    <div class="section-header">
+        <h3 class="section-title">Your Beneficiaries</h3>
+        <button class="edit-link" aria-label="Edit beneficiary information">Edit</button>
+    </div>
+    <div class="beneficiary-grid">
+        <!-- Primary Beneficiaries -->
+        <div class="beneficiary-section-title">Primary Beneficiaries</div>
+        <div class="beneficiary-row">
+            <div class="beneficiary-card">
+                <svg class="beneficiary-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div class="beneficiary-card-name">Jane Doe</div>
+                <div class="beneficiary-card-relationship">Spouse</div>
+                <span class="beneficiary-card-percentage">50%</span>
+            </div>
+            
+            <div class="beneficiary-card">
+                <svg class="beneficiary-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
+                    <path d="M15 12h.01"/>
+                    <path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>
+                    <path d="M9 12h.01"/>
+                </svg>
+                <div class="beneficiary-card-name">Timmy Doe</div>
+                <div class="beneficiary-card-relationship">Child</div>
+                <span class="beneficiary-card-percentage">25%</span>
+            </div>
+            
+            <div class="beneficiary-card">
+                <svg class="beneficiary-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
+                    <path d="M15 12h.01"/>
+                    <path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>
+                    <path d="M9 12h.01"/>
+                </svg>
+                <div class="beneficiary-card-name">Sarah Doe</div>
+                <div class="beneficiary-card-relationship">Child</div>
+                <span class="beneficiary-card-percentage">25%</span>
+            </div>
+            
+            <div class="empty-beneficiary-slot" tabindex="0">
+                <svg class="empty-slot-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <div class="empty-slot-text">Add Primary</div>
+            </div>
+        </div>
+        
+        <!-- Contingent Beneficiaries -->
+        <div class="beneficiary-section-title">Contingent Beneficiaries</div>
+        <div class="beneficiary-row">
+            <div class="beneficiary-card contingent-card">
+                <svg class="beneficiary-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div class="beneficiary-card-name">Robert Smith</div>
+                <div class="beneficiary-card-relationship">Brother</div>
+                <span class="beneficiary-card-percentage">50%</span>
+            </div>
+            
+            <div class="beneficiary-card contingent-card">
+                <svg class="beneficiary-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div class="beneficiary-card-name">Mary Johnson</div>
+                <div class="beneficiary-card-relationship">Sister</div>
+                <span class="beneficiary-card-percentage">30%</span>
+            </div>
+            
+            <div class="beneficiary-card contingent-card">
+                <svg class="beneficiary-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div class="beneficiary-card-name">Good Charity</div>
+                <div class="beneficiary-card-relationship">Charity</div>
+                <span class="beneficiary-card-percentage">20%</span>
+            </div>
+            
+            <div class="empty-beneficiary-slot" tabindex="0">
+                <svg class="empty-slot-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <div class="empty-slot-text">Add Contingent</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+               <!-- Beneficiaries -->
+                <!--
+                <div class="section-block">
+                    <div class="section-header">
+                        <h3 class="section-title">Your Beneficiaries</h3>
+                        <button class="edit-link" aria-label="Edit beneficiary information">Edit</button>
+                    </div>
+                    <div class="beneficiary-list">
+                        <div class="beneficiary-item">
+                            <div class="beneficiary-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="beneficiary-icon" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <div>
+                                    <strong>Jane Doe</strong><br>
+                                    <small class="text-muted">Spouse</small>
+                                </div>
+                            </div>
+                            <span class="beneficiary-percentage">75%</span>
+                        </div>
+                        <div class="beneficiary-item">
+                            <div class="beneficiary-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="beneficiary-icon" aria-hidden="true">
+                                    <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
+                                    <path d="M15 12h.01"/>
+                                    <path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>
+                                    <path d="M9 12h.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Timmy Doe</strong><br>
+                                    <small class="text-muted">Child</small>
+                                </div>
+                            </div>
+                            <span class="beneficiary-percentage">25%</span>
+                        </div>
+                    </div>
+                </div> 
+                -->
+
+
+                <!-- No Beneficiaries -->
+<div class="section-block">
+    <div class="section-header">
+        <h3 class="section-title">Your Beneficiaries</h3>
+        <button class="edit-link" aria-label="Add beneficiary">Add</button>
+    </div>
+    <div class="no-beneficiaries-compact">
+        <div class="no-beneficiaries-content">
+            <div class="no-beneficiaries-title-compact">No beneficiaries selected</div>
+            <div class="no-beneficiaries-subtitle">For ADD coverage, beneficiaries are optional</div>
+        </div>
+        <button class="add-beneficiary-btn-compact" type="button">
+            Add Beneficiary
+        </button>
+    </div>
+</div>
+
+            </div>
+
+            <!-- Right Column - Payment & Submit -->
+            <div class="checkout-section">
+                <div class="checkout-header">
+                    <h2 class="checkout-title">Complete Application</h2>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="payment-method-section">
+                    <h3 class="form-label">Select Payment Method</h3>
+                    <div class="payment-options">
+                        <div class="payment-option" tabindex="0" data-payment="eft" onclick="selectPayment(this)">
+                            <div class="payment-option-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                    <path d="M6 8h.01"/>
+                                    <path d="M10 8h.01"/>
+                                    <path d="M14 8h.01"/>
+                                </svg>
+                            </div>
+                            <div class="payment-option-label">EFT</div>
+                        </div>
+                        <div class="payment-option" tabindex="0" data-payment="direct-bill" onclick="selectPayment(this)">
+                            <div class="payment-option-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10,9 9,9 8,9"></polyline>
+                                </svg>
+                            </div>
+                            <div class="payment-option-label">Direct Bill</div>
+                            </div>
+                    </div>
+                </div>
+
+                <!-- EFT Form -->
+                <div class="form-section" id="eftForm" style="display: none;">
+                                    <!-- 
+                =================================
+                ✅ START: Billing Frequency Selection HTML
+                📝 Added: Material Design radio buttons for payment frequency
+                🎨 Features: Monthly/Quarterly/Semi-Annually/Annually options
+                =================================
+                -->
+                <div class="billing-frequency-section">
+                    <h3 class="billing-frequency-title">Choose a Monthly Payment Method</h3>
+                    <p class="billing-frequency-subtitle">John, what's your preferred billing frequency?</p>
+                    
+                    <div class="billing-frequency-options">
+                        <div class="billing-frequency-check">
+                            <input class="billing-frequency-input" type="radio" name="billingFrequency" id="monthly" value="monthly">
+                            <label class="billing-frequency-label" for="monthly">
+                                <span class="material-radio">
+                                    <span class="material-radio-outer"></span>
+                                    <span class="material-radio-inner"></span>
+                                    <span class="material-radio-ripple"></span>
+                                </span>
+                                Monthly
+                            </label>
+                        </div>
+                        <div class="billing-frequency-check">
+                            <input class="billing-frequency-input" type="radio" name="billingFrequency" id="quarterly" value="quarterly">
+                            <label class="billing-frequency-label" for="quarterly">
+                                <span class="material-radio">
+                                    <span class="material-radio-outer"></span>
+                                    <span class="material-radio-inner"></span>
+                                    <span class="material-radio-ripple"></span>
+                                </span>
+                                Quarterly
+                            </label>
+                        </div>
+                        <div class="billing-frequency-check">
+                            <input class="billing-frequency-input" type="radio" name="billingFrequency" id="semiAnnually" value="semi-annually">
+                            <label class="billing-frequency-label" for="semiAnnually">
+                                <span class="material-radio">
+                                    <span class="material-radio-outer"></span>
+                                    <span class="material-radio-inner"></span>
+                                    <span class="material-radio-ripple"></span>
+                                </span>
+                                Semi-Annually
+                            </label>
+                        </div>
+                        <div class="billing-frequency-check">
+                            <input class="billing-frequency-input" type="radio" name="billingFrequency" id="annually" value="annually">
+                            <label class="billing-frequency-label" for="annually">
+                                <span class="material-radio">
+                                    <span class="material-radio-outer"></span>
+                                    <span class="material-radio-inner"></span>
+                                    <span class="material-radio-ripple"></span>
+                                </span>
+                                Annually
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 
+                =================================
+                ✅ END: Billing Frequency Selection HTML
+                =================================
+                -->
+
+                    <h3 class="form-label">EFT Payment Details</h3>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="bankName" class="form-label">Bank Name</label>
+                            <input type="text" class="form-control" id="bankName" aria-label="Bank Name">
+                        </div>
+                        <div class="col-6">
+                            <label for="routingNumber" class="form-label">Routing Number</label>
+                            <input type="text" class="form-control" id="routingNumber" aria-label="Routing Number">
+                        </div>
+                        <div class="col-6">
+                            <label for="accountNumber" class="form-label">Account Number</label>
+                            <input type="text" class="form-control" id="accountNumber" aria-label="Account Number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Bill Section -->
+                <div class="form-section" id="directBillForm" style="display: none;">
+                    <div class="text-center">
+                        <p class="text-muted">Your billing information has been confirmed from the previous step. You will receive invoices at your registered address.</p>
+                    </div>
+                </div>
+
+<!-- Updated Payment Summary with Premium Breakdown -->
+<div class="total-summary">
+    <div class="summary-header">
+        <span>Payment Summary</span>
+        <span>Semi-Annual</span>
+    </div>
+    
+    <!-- Desktop Version -->
+    <div class="policy-breakdown desktop-only">
+        <div class="policy-group">
+            <span class="policy-group-title">Term Life and AD&amp;D</span>
+            <div class="policy-member-line">
+                <div class="policy-member-details">
+                    <span class="policy-member-name">John</span> - 
+                    <span class="policy-coverage-amount">$300,000</span>
+                </div>
+                <span class="policy-member-cost">$29.40</span>
+            </div>
+            <div class="policy-member-line">
+                <div class="policy-member-details">
+                    <span class="policy-member-name">Jane</span> - 
+                    <span class="policy-coverage-amount">$25,000</span>
+                </div>
+                <span class="policy-member-cost">$9.99</span>
+            </div>
+            <div class="policy-member-line">
+                <div class="policy-member-details">
+                    <span class="policy-member-name">Your child(ren)</span> - 
+                    <span class="policy-coverage-amount">$10,000</span>
+                </div>
+                <span class="policy-member-cost">$1.80</span>
+            </div>
+        </div>
+        
+        <div class="policy-group">
+            <span class="policy-group-title">Critical Illness</span>
+            <div class="policy-member-line">
+                <div class="policy-member-details">
+                    <span class="policy-member-name">John</span> - 
+                    <span class="policy-coverage-amount">$30,000</span>
+                </div>
+                <span class="policy-member-cost">$11.73</span>
+            </div>
+            <div class="policy-member-line">
+                <div class="policy-member-details">
+                    <span class="policy-member-name">Jane</span> - 
+                    <span class="policy-coverage-amount">$15,000</span>
+                </div>
+                <span class="policy-member-cost">$5.88</span>
+            </div>
+            <div class="policy-member-line">
+                <div class="policy-member-details">
+                    <span class="policy-member-name">Your child(ren)</span> - 
+                    <span class="policy-coverage-amount">$15,000</span>
+                </div>
+                <span class="policy-member-cost">$15.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Version -->
+    <div class="policy-breakdown mobile-only">
+        <div class="policy-group">
+            <span class="policy-group-title">Term Life and AD&amp;D</span>
+            <div class="policy-member-line-mobile">
+                <span>John - $300,000</span>
+                <span class="policy-member-cost">$29.40</span>
+            </div>
+            <div class="policy-member-line-mobile">
+                <span>Jane - $25,000</span>
+                <span class="policy-member-cost">$9.99</span>
+            </div>
+            <div class="policy-member-line-mobile">
+                <span>Child(ren) - $10,000</span>
+                <span class="policy-member-cost">$1.80</span>
+            </div>
+            <div class="policy-group-total">
+                <span>Term Life and AD&amp;D Total</span>
+                <span class="policy-group-total-amount">$39.39</span>
+            </div>
+        </div>
+        
+        <div class="policy-group">
+            <span class="policy-group-title">Critical Illness</span>
+            <div class="policy-member-line-mobile">
+                <span>John - $30,000</span>
+                <span class="policy-member-cost">$11.73</span>
+            </div>
+            <div class="policy-member-line-mobile">
+                <span>Jane - $15,000</span>
+                <span class="policy-member-cost">$5.88</span>
+            </div>
+            <div class="policy-member-line-mobile">
+                <span>Child(ren) - $15,000</span>
+                <span class="policy-member-cost">$15.00</span>
+            </div>
+            <div class="policy-group-total">
+                <span>Critical Illness Total</span>
+                <span class="policy-group-total-amount">$32.61</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="summary-line total">
+        <span>Total Amount</span>
+        <span>$64.34</span>
+    </div>
+    <div class="text-center">
+        <small class="text-muted">Next payment: 6 months from approval</small>
+    </div>
+</div>
+
+
+   <!-- Legal Notice -->
+<div class="legal-notice">
+    By signing the application electronically, you acknowledge that you have read, understood and agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Use</a>, verified the accuracy of all information in the Enrollment Form, and agree that this <a href="#" data-bs-toggle="modal" data-bs-target="#electronicSignatureModal">electronic signature</a> has the same full legal force and effect as a handwritten signature.
+    <br>By proceeding, you also authorize the use and disclosure of your health information as described in our <a href="#" data-bs-toggle="modal" data-bs-target="#hipaaModal">HIPAA Authorization</a>. You acknowledge receipt of our <a href="#" data-bs-toggle="modal" data-bs-target="#apoModal">APO Authorization</a> regarding protected information. Please review our <a href="#" data-bs-toggle="modal" data-bs-target="#importantNoticesModal">Important Notices</a> for additional disclosures and information.
+ </div>
+ 
+ <!-- 
+ =================================
+ ✅ START: Legal Notice Modals HTML
+ 📝 Added: Bootstrap 5 modals for Terms, HIPAA, APO, etc.
+ 🎨 Features: 5 responsive modals with professional styling
+ =================================
+ -->
+ 
+ <!-- Terms of Use Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms of Use</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Member Certification</h6>
+                <p>I, the undersigned member, certify that I have read, or have had read to me, the completed request for coverage form and I realize that any false statement or misrepresentation in the request for coverage form may result in loss of coverage under the Group Contract. By my eSignature below, I hereby request coverage. I acknowledge that I am a member of the American Foreign Service Protective Association and that I must continue such membership to keep this insurance in force.</p>
+                
+                <h6>Statement of Understanding</h6>
+                <p>I represent that all statements and answers made within or attached to this Request Form are true and complete to the best of my knowledge and belief. I understand that my request for coverage form, including portions containing health information are submitted to the Plan Administrator, acting for the policyholder, and that the administrator shall forward the request for coverage form to the insurance company. Furthermore, I understand that coverage shall be in effect only after these conditions have been met: this request for coverage form has been approved by Prudential; the Certificate has been issued while all persons to be insured there under are alive; the answers and statements in this request for coverage form continue to be true and complete until the Effective Date; and the initial premium contribution has been paid. I also understand that coverage will not take effect if the facts have changed. I have also read and understand and agree to the additional terms, conditions and requirements as stated in the Authorization for the Release of Information and Important Notice sections. I understand that completion of this request for coverage form in no way implies that I will be accepted for insurance coverage.</p>
+                
+                <h6>State-Specific Fraud Warnings</h6>
+                
+                <p><strong>FLORIDA RESIDENTS</strong> – Any person who knowingly and with intent to injure, defraud, or deceive any insurer files a statement of claim or an application containing any false, incomplete, or misleading information is guilty of a felony of the third degree.</p>
+                
+                <p><strong>NEW YORK RESIDENTS</strong> – Any person who knowingly and with intent to defraud any insurance company or other person files an application for insurance or statement of claim containing any materially false information, or conceals for the purpose of misleading, information concerning any fact material thereto, commits a fraudulent insurance act, which is a crime, and shall also be subject to a civil penalty not to exceed five thousand dollars and the stated value of the claim for each such violation. This notice ONLY applies to accident and disability income coverage.</p>
+                
+                <p><strong>For residents of all states except Alabama, Arkansas, the District of Columbia, Florida, Kentucky, Louisiana, Maine, Maryland, New Jersey, North Carolina, Pennsylvania, Rhode Island, Utah, Vermont, Virginia, and Washington:</strong> WARNING– Any person who knowingly and with intent to injure, defraud, or deceive any insurance company or other person, or knowing that he is facilitating commission of a fraud, submits incomplete, false, fraudulent, deceptive or misleading facts or information when filing an insurance application or a statement of claim for payment of a loss or benefit commits a fraudulent insurance act, is/may be guilty of a crime and may be prosecuted and punished under state law. Penalties may include fines, civil damages and criminal penalties, including confinement in prison. In addition, an insurer may deny insurance benefits if false information materially related to a claim was provided by the applicant or if the applicant conceals, for the purpose of misleading, information concerning any fact material thereto.</p>
+                
+                <p><strong>ALABAMA RESIDENTS:</strong> Any person who knowingly presents a false or fraudulent claim for payment of a loss or benefit or who knowingly presents false information in an application for insurance is guilty of a crime and may be subject to restitution fines or confinement in prison, or any combination thereof.</p>
+                
+                <p><strong>ARKANSAS, DISTRICT OF COLUMBIA, LOUISIANA and RHODE ISLAND RESIDENTS:</strong> Any person who knowingly presents a false or fraudulent claim for payment of a loss or benefit or knowingly presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in prison.</p>
+                
+                <p><strong>KENTUCKY RESIDENTS:</strong> Any person who knowingly and with intent to defraud any insurance company or other person files an application for insurance containing any materially false information or conceals, for the purpose of misleading, information concerning any fact material thereto commits a fraudulent insurance act, which is a crime.</p>
+                
+                <p><strong>MAINE and WASHINGTON RESIDENTS:</strong> Any person who knowingly provides false, incomplete, or misleading information to an insurance company for the purpose of defrauding the company commits a crime. Penalties include imprisonment, fines, and denial of insurance benefits.</p>
+                
+                <p><strong>MARYLAND RESIDENTS:</strong> Any person who knowingly or willfully presents a false or fraudulent claim for payment of a loss or benefit or who knowingly or willfully presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in prison.</p>
+                
+                <p><strong>NEW JERSEY RESIDENTS:</strong> Any person who includes any false or misleading information on an application for an insurance policy is subject to criminal and civil penalties.</p>
+                
+                <p><strong>NORTH CAROLINA RESIDENTS:</strong> Any person who, with the intent to injure, defraud, or deceive an insurer or insurance claimant, knowing that the statement contains false information concerning a fact or matter material to the claim may be guilty of a class H felony.</p>
+                
+                <p><strong>PENNSYLVANIA and UTAH RESIDENTS:</strong> Any person who knowingly and with intent to defraud any insurance company or other person files an application for insurance or statement of claim containing any materially false information or conceals for the purpose of misleading, information concerning any material fact thereto commits a fraudulent insurance act, which is a crime and subjects such person to criminal and civil penalties.</p>
+                
+                <p><strong>VERMONT RESIDENTS:</strong> Any person who knowingly presents a false or fraudulent claim for payment of a loss or knowingly makes a false statement in an application for insurance may be guilty of a criminal offense under state law.</p>
+                
+                <p><strong>VIRGINIA RESIDENTS:</strong> Any person, who with the intent to defraud or knowing that he/she is facilitating a fraud against an insurer, submits an application or files a claim containing a false or deceptive statement may have violated state law.</p>
+                
+                <h6>Fraud Warnings Acknowledgment</h6>
+                <p>Please consult Fraud warnings appearing on next page. I have read and understand the terms and requirements of these Fraud warnings.</p>
+                <p>I have received the Group Life and Disability Income Medical Underwriting Notice included with this form.</p>
+                
+                <h6>Group Life and Disability Income Medical Underwriting Notice</h6>
+                <p>Thank you for choosing The Prudential Insurance Company of America (Prudential) for your insurance needs. Before we can issue coverage, we must review your Enrollment Form. To do this, we need to collect and evaluate personal information about you. This notice is being provided to inform you of certain information practices Prudential engages in, and your rights with regard to your personal information.</p>
+                
+                <p>We would like you to know that: personal information may be collected from persons other than yourself or other individuals, if applicable, proposed for coverage; this personal information as well as other personal or privileged information subsequently collected by us may, in certain circumstances, be disclosed to third parties without authorization; you have a right of access and correction with respect to personal information we collect about you; and upon request from you, we will provide you with a more detailed notice of our information practices and your rights with respect to such information. Should you wish to receive this notice, please contact: The Prudential Insurance Company of America, Group Medical Underwriting, P.O. Box 8796, Philadelphia, PA 19176.</p>
+                
+                <h6>Medical Information Bureau (MIB) Notice</h6>
+                <p>Any information we obtain regarding a person's insurability will be treated as confidential. We may, however, make a brief report of it to the Medical Information Bureau (the Bureau), a non-profit membership organization of life insurance companies, which operates an information exchange on behalf of its members. When you apply for life, disability, or health insurance to any company, including Prudential, which is a member of the Bureau, or submit a claim for benefits to such a company, the Bureau will, on request, give the company the information in its files. In addition, upon receipt of a request from you, the Bureau will arrange disclosure of any information it may have in your file. If the information came from the Bureau and you question the accuracy of the information in the Bureau's files, you may contact the Bureau and seek a correction in accordance with the procedures set forth in the Federal Fair Credit Reporting Act. The Bureau's address is: MIB Group, Inc., Customer Service, 50 Braintree Hill Park, Suite 400, Braintree, MA 02184, 1-866-692-6901.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Electronic Signature Modal -->
+<div class="modal fade" id="electronicSignatureModal" tabindex="-1" aria-labelledby="electronicSignatureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="electronicSignatureModalLabel">Electronic Signature Authorization</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Electronic Signature and Records Agreement</h6>
+                <p>I agree to the usage of electronic signature and electronic records for current and future transactions pertaining to my application conducted through this website, effective on the date I click "Submit".</p>
+                
+                <h6>Paper Copies and Records</h6>
+                <p>I understand that I have the option to print and retain paper copies of any electronic records generated and to obtain paper copies of any electronic records generated during website transactions concerning my coverage(s).</p>
+                
+                <h6>Obtaining Paper Copies and Withdrawal</h6>
+                <p>I understand that to obtain paper copies of electronic records kept by Prudential concerning my coverage(s), or to withdraw my consent to the usage of electronic records, I must contact Prudential through any of the means provided.</p>
+                
+                <h6>Contact Information Updates</h6>
+                <p>I understand that in the event my personal contact information changes, I must immediately notify Prudential of the changes through any of the means provided in the "Help" section of this website.</p>
+                
+                <h6>System Requirements</h6>
+                <p>I understand that to access and conduct transactions relating to my coverage via any prudential.com Internet site, I must have access to a personal computer at my home or workplace which can support Internet access, and a compatible browser.</p>
+                
+                <h6>Legal Acknowledgment</h6>
+                <p>I represent that all statements and answers made within or attached to this Request Form are true and complete to the best of my knowledge and belief. <strong>BY CHECKING THE BOX BELOW, YOU ACKNOWLEDGE THAT YOU AGREE TO THE ELECTRONIC DELIVERY OF THE AGREEMENT AND TO BE LEGALLY BOUND, WITH RESPECT TO THIS AGREEMENT, AS IF YOU HAD SIGNED THIS AGREEMENT WITH A HAND-WRITTEN SIGNATURE. YOU MAY PRINT OR RETAIN A COPY OF THIS AGREEMENT FOR YOUR RECORDS.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HIPAA Authorization Modal -->
+<div class="modal fade" id="hipaaModal" tabindex="-1" aria-labelledby="hipaaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hipaaModalLabel">HIPAA Authorization</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Authorization for the Release of Information</h6>
+                <p>This authorization is intended to comply with the HIPAA Privacy Rule.</p>
+                
+                <h6>Authorization to Disclose Medical Records</h6>
+                <p>I authorize and instruct any health plan, physician, health care professional, hospital, clinic, laboratory, medical facility, pharmacy benefit manager, retail pharmacy, clearinghouse, data warehouse, or other comparable organization that aggregates and maintains pharmacy data, or other health care provider that has provided treatment or services to me within the past 5 years ("My Providers") to disclose my entire medical record and any other health information concerning me to The Prudential Insurance Company of America ("Prudential") and, through it, to its reinsurers, authorized agents, and MIB, Inc.</p>
+                
+                <h6>Specific Information Included</h6>
+                <p>This includes information on the diagnosis and treatment of Human Immunodeficiency Virus (HIV) infection (In Vermont and Wisconsin, this information is excluded) and sexually transmitted diseases. This also includes information on the diagnosis and treatment of mental illness and the use of alcohol, drugs, and tobacco, but excludes psychotherapy notes.</p>
+                
+                <h6>MIB Authorization</h6>
+                <p>I also authorize MIB, Inc. to release any data it may have about me for coverage to Prudential. By my signature below, I acknowledge that any agreements I have made to restrict the disclosure of health information do not apply to this Authorization, and I instruct any of My Providers to release and disclose my entire medical record without restriction, including, without limitation, any restrictions on health care items or services for which a health care provider has been paid out of pocket in full.</p>
+                
+                <h6>Purpose of Disclosure</h6>
+                <p>This health information is to be disclosed under this Authorization so that Prudential may: 1) underwrite an application for coverage and make risk determinations; 2) administer coverage; and 3) conduct other legally permissible activities that relate to any coverage I have or have applied for with Prudential.</p>
+                
+                <h6>Duration and Revocation</h6>
+                <p>This Authorization shall remain in force for 24 months following the date of my signature below, and a copy of this Authorization is as valid as the original. I understand that I have the right to revoke this Authorization in writing, at any time, by sending a signed request for revocation to The Prudential Insurance Company of America; Group Medical Underwriting, P.O. Box 8796, Philadelphia, PA 19176, Attention: Senior Medical Underwriting Consultant.</p>
+                
+                <h6>Important Limitations</h6>
+                <p>I understand that such a revocation is not effective to the extent that Prudential has taken action in reliance on this Authorization or to the extent that Prudential has a legal right to contest a claim under the insurance contract or to contest the contract itself. I understand that any information that is disclosed pursuant to this Authorization may be re-disclosed to other parties and will not be protected by the HIPAA Privacy Rule. (In Montana only, I may request a record of any subsequent disclosures of protected health information).</p>
+                
+                <h6>Consequences of Refusal</h6>
+                <p>I understand that if I refuse to sign this Authorization to release my entire medical record and any other health information concerning me, Prudential may not be able to process an application for coverage. I understand that I have the right to request and receive a copy of this Authorization.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- APO Authorization Modal -->
+<div class="modal fade" id="apoModal" tabindex="-1" aria-labelledby="apoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="apoModalLabel">APO Authorization</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Automatic Payment Option (Account Deduction Authorization)</h6>
+                <p>The Automatic Payment Option (Account Deduction Authorization) is subject to the following conditions:</p>
+                
+                <h6>Payment Processing</h6>
+                <ul>
+                    <li>Premium payments will be debited from your account on or about the premium due date.</li>
+                    <li>Additional premium that may be required in order to keep policy(ies)/certificate(s) current may be drawn from your account through the use of multiple debits.</li>
+                </ul>
+                
+                <h6>Revocation and Fees</h6>
+                <ul>
+                    <li>The Rutgers may revoke the privilege of paying premium under this Automatic Payment Option (APO) if any payment is dishonored.</li>
+                    <li>A service fee of $15.00 may be assessed for each dishonored payment.</li>
+                </ul>
+                
+                <h6>Discontinuation</h6>
+                <ul>
+                    <li>Payment of premium under APO may be discontinued by the Company or the undersigned upon thirty (30) days written notice.</li>
+                    <li>If APO is discontinued, an alternate payment mode acceptable to the Company will be used to remit the premiums needed to keep the policy(ies)/certificate(s) in force and current.</li>
+                </ul>
+                
+                <h6>Premium Notices and Changes</h6>
+                <ul>
+                    <li>The Company will not send premium notices while APO is in effect.</li>
+                    <li>A request for change or adjustment to the APO must be sent directly to the Company's Customer Service Department.</li>
+                </ul>
+                
+                <h6>Cancellation and Refunds</h6>
+                <ul>
+                    <li>If you cancel this service, any refund of premium due you will take sixty (60) days to process.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Important Notices Modal -->
+<div class="modal fade" id="importantNoticesModal" tabindex="-1" aria-labelledby="importantNoticesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importantNoticesModalLabel">Important Notices</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Coverage Limitations</h6>
+                <p>This policy provides limited benefits as specified in the policy documents. Please review all terms, conditions, exclusions, and limitations before enrollment.</p>
+                
+                <h6>Pre-existing Conditions</h6>
+                <p>Coverage for pre-existing medical conditions may be limited or excluded. Please review the policy documents for specific details regarding pre-existing condition limitations.</p>
+                
+                <h6>Effective Date</h6>
+                <p>Coverage becomes effective on the date specified in your certificate of coverage, subject to approval of your application and payment of required premiums.</p>
+                
+                <h6>Right to Cancel</h6>
+                <p>You have the right to cancel your coverage within the free look period specified in your state. Cancellation procedures and refund policies are outlined in your policy documents.</p>
+                
+                <h6>Claims Procedures</h6>
+                <p>To file a claim, you must follow the procedures outlined in your policy documents. Failure to comply with claims procedures may result in denial or delay of benefits.</p>
+                
+                <h6>Premium Changes</h6>
+                <p>Premiums may be subject to change based on factors such as age, coverage amount, and insurance company rate adjustments. You will be notified in advance of any premium changes.</p>
+                
+                <h6>State Specific Notices</h6>
+                <p>Additional state-specific notices and requirements may apply based on your state of residence. Please refer to your policy documents for state-specific provisions.</p>
+                
+                <h6>Contact Information</h6>
+                <p>For questions about your coverage, claims, or policy changes, please contact customer service at the number provided in your policy documents.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                         </div>
+         </div>
+     </div>
+ </div>
+ 
+ <!-- 
+ =================================
+ ✅ END: Legal Notice Modals HTML
+ =================================
+ -->
+
+                <!-- Submit Button -->
+                <button class="submit-btn" id="submitBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;" aria-hidden="true">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22,4 12,14.01 9,11.01"></polyline>
+                    </svg>
+                    Submit Application
+                </button>
+
+                
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Footer for Mobile -->
+    <div class="sticky-footer">
+        <div class="scroll-progress"></div>
+        <button class="submit-btn" id="stickySubmitBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22,4 12,14.01 9,11.01"></polyline>
+            </svg>
+            Submit Application
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function selectPayment(clickedElement) {
+            // Remove selected class from all payment options
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            clickedElement.classList.add('selected');
+            
+            // Hide all form sections
+            document.getElementById('eftForm').style.display = 'none';
+            document.getElementById('directBillForm').style.display = 'none';
+            
+            // Show the appropriate form based on selection
+            const paymentType = clickedElement.getAttribute('data-payment');
+            if (paymentType === 'eft') {
+                document.getElementById('eftForm').style.display = 'block';
+            } else if (paymentType === 'direct-bill') {
+                document.getElementById('directBillForm').style.display = 'block';
+            }
+        }
+
+        // Add keyboard support for payment options
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    selectPayment(this);
+                }
+            });
+        });
+
+        // Sticky Footer Scroll Functionality (Mobile Only)
+        function initStickyFooter() {
+            const stickyFooter = document.querySelector('.sticky-footer');
+            const stickySubmitBtn = document.getElementById('stickySubmitBtn');
+            const scrollProgress = document.querySelector('.scroll-progress');
+            
+            if (!stickyFooter || window.innerWidth > 768) return;
+            
+            function updateScrollProgress() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                
+                // Update progress bar
+                scrollProgress.style.width = scrollPercentage + '%';
+                
+                // Enable button when user has scrolled 95% or more
+                if (scrollPercentage >= 95) {
+                    stickySubmitBtn.classList.add('enabled');
+                    stickySubmitBtn.disabled = false;
+                } else {
+                    stickySubmitBtn.classList.remove('enabled');
+                    stickySubmitBtn.disabled = true;
+                }
+            }
+            
+            // Initial check
+            updateScrollProgress();
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', updateScrollProgress);
+            
+            // Handle button click
+            stickySubmitBtn.addEventListener('click', function(e) {
+                if (!this.classList.contains('enabled')) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Handle form submission here
+                console.log('Form submitted from sticky footer');
+            });
+        }
+        
+        // Initialize on page load and resize
+        document.addEventListener('DOMContentLoaded', initStickyFooter);
+        window.addEventListener('resize', function() {
+            // Reinitialize if switching to/from mobile view
+            setTimeout(initStickyFooter, 100);
+        });
+        
+        // ================================================
+        // Modal Scroll Reset - Ensures modals always open at the top
+        // ================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all modal elements
+            const modals = document.querySelectorAll('.modal');
+            
+            modals.forEach(function(modal) {
+                modal.addEventListener('show.bs.modal', function() {
+                    // Reset scroll position when modal is about to show
+                    const modalBody = this.querySelector('.modal-body');
+                    if (modalBody) {
+                        modalBody.scrollTop = 0;
+                    }
+                });
+                
+                modal.addEventListener('shown.bs.modal', function() {
+                    // Ensure scroll position is at top after modal is fully shown
+                    setTimeout(() => {
+                        const modalBody = this.querySelector('.modal-body');
+                        if (modalBody) {
+                            modalBody.scrollTop = 0;
+                        }
+                    }, 50);
+                });
+            });
+        });
+    </script>
+
+   
+
+</body>
+</html>
