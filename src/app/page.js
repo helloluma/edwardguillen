@@ -380,6 +380,7 @@ export default function Home() {
               route="/about"
               animateOnScroll={false}
               delay={showPreloader ? 10.3 : 1.15}
+              className="hide-on-mobile"
             />
           </div>
         </div>

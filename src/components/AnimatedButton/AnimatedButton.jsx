@@ -18,6 +18,7 @@ const AnimatedButton = ({
   animate = true,
   animateOnScroll = true,
   delay = 0,
+  className = "",
 }) => {
   const { navigateWithTransition } = useViewTransition();
   const buttonRef = useRef(null);
@@ -156,7 +157,7 @@ const AnimatedButton = ({
       return (
         <a
           href={route}
-          className="btn"
+          className={`btn ${className}`}
           ref={buttonRef}
           target="_blank"
           rel="noopener noreferrer"
@@ -169,7 +170,7 @@ const AnimatedButton = ({
     return (
       <a
         href={route}
-        className="btn"
+        className={`btn ${className}`}
         ref={buttonRef}
         onClick={(e) => {
           e.preventDefault();
@@ -182,7 +183,7 @@ const AnimatedButton = ({
   }
 
   return (
-    <button className="btn" ref={buttonRef}>
+    <button className={`btn ${className}`} ref={buttonRef}>
       {buttonContent}
     </button>
   );

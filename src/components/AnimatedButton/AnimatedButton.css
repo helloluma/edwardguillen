@@ -74,3 +74,10 @@
 .btn:hover .button-text {
   color: var(--base-100);
 }
+
+/* Hide on mobile devices */
+@media (max-width: 768px) {
+  .btn.hide-on-mobile {
+    display: none !important;
+  }
+}
