@@ -134,24 +134,24 @@
     <div class="controls">
         <div class="control-group">
             <label for="backgroundImage">Background Image:</label>
-            <select id="backgroundImage" onchange="updateBackground()">
-                <option value="/assets/home/hero.jpg">Homepage</option>
-                <option value="/assets/prudential-hero1.jpg">Prudential</option>
-                <option value="/assets/arthe-hero1.jpg">Arthe</option>
-                <option value="/assets/onoctave-hero1.jpg">OnOctave</option>
-                <option value="/assets/wmg-hero1.jpg">Warner Music Group</option>
-                <option value="/assets/cisco-hero.jpg">Cisco</option>
+            <select id="backgroundImage" onchange="updateProject()">
+                <option value="/assets/home/hero.jpg">Homepage (Edward Guillen)</option>
+                <option value="/assets/prudential-hero1.jpg">Prudential (Onboarding Experience)</option>
+                <option value="/assets/arthe-hero1.jpg">Arthe (Platform Design)</option>
+                <option value="/assets/onoctave-hero1.jpg">OnOctave (Micro Transactions)</option>
+                <option value="/assets/wmg-hero1.jpg">Warner Music Group (Music Platform)</option>
+                <option value="/assets/cisco-hero.jpg">Cisco (Visual Storytelling)</option>
             </select>
         </div>
         
         <div class="control-group">
-            <label for="pageTitle">Page Title:</label>
-            <input type="text" id="pageTitle" value="Product Designer" onchange="updatePageTitle()">
+            <label for="projectName">Project Name (main title):</label>
+            <input type="text" id="projectName" value="OnOctave" onchange="updateProjectName()">
         </div>
         
         <div class="control-group">
-            <label for="projectName">Project Name (optional):</label>
-            <input type="text" id="projectName" value="" onchange="updateProjectName()">
+            <label for="projectSubtitle">Project Subtitle:</label>
+            <input type="text" id="projectSubtitle" value="Micro Transactions" onchange="updateProjectSubtitle()">
         </div>
         
         <button class="download-btn" onclick="downloadImage()">Download Image</button>
@@ -159,34 +159,63 @@
 
     <div class="vertical-card" id="card">
         <div class="text-overlay">
-            <div class="name">Edward Guillen</div>
-            <div class="title" id="title">Product Designer</div>
-            <div class="page-title" id="projectTitle" style="display: none;"></div>
+            <div class="name" id="projectName">OnOctave</div>
+            <div class="title" id="projectSubtitle">Micro Transactions</div>
         </div>
     </div>
 
     <script>
-        function updateBackground() {
+        function updateProject() {
             const select = document.getElementById('backgroundImage');
             const card = document.getElementById('card');
             card.style.backgroundImage = `url('${select.value}')`;
-        }
-
-        function updatePageTitle() {
-            const input = document.getElementById('pageTitle');
-            const title = document.getElementById('title');
-            title.textContent = input.value;
+            
+            // Update project name and subtitle based on selection
+            const projectNameInput = document.getElementById('projectName');
+            const projectSubtitleInput = document.getElementById('projectSubtitle');
+            
+            switch(select.value) {
+                case '/assets/home/hero.jpg':
+                    projectNameInput.value = 'Edward Guillen';
+                    projectSubtitleInput.value = 'Product Designer';
+                    break;
+                case '/assets/prudential-hero1.jpg':
+                    projectNameInput.value = 'Prudential';
+                    projectSubtitleInput.value = 'Onboarding Experience';
+                    break;
+                case '/assets/arthe-hero1.jpg':
+                    projectNameInput.value = 'Arthe';
+                    projectSubtitleInput.value = 'Platform Design';
+                    break;
+                case '/assets/onoctave-hero1.jpg':
+                    projectNameInput.value = 'OnOctave';
+                    projectSubtitleInput.value = 'Micro Transactions';
+                    break;
+                case '/assets/wmg-hero1.jpg':
+                    projectNameInput.value = 'Warner Music Group';
+                    projectSubtitleInput.value = 'Music Platform';
+                    break;
+                case '/assets/cisco-hero.jpg':
+                    projectNameInput.value = 'Cisco';
+                    projectSubtitleInput.value = 'Visual Storytelling';
+                    break;
+            }
+            
+            // Update the display
+            updateProjectName();
+            updateProjectSubtitle();
         }
 
         function updateProjectName() {
             const input = document.getElementById('projectName');
-            const projectTitle = document.getElementById('projectTitle');
-            if (input.value.trim()) {
-                projectTitle.textContent = input.value;
-                projectTitle.style.display = 'block';
-            } else {
-                projectTitle.style.display = 'none';
-            }
+            const projectNameDisplay = document.querySelector('.name');
+            projectNameDisplay.textContent = input.value;
+        }
+
+        function updateProjectSubtitle() {
+            const input = document.getElementById('projectSubtitle');
+            const projectSubtitleDisplay = document.querySelector('.title');
+            projectSubtitleDisplay.textContent = input.value;
         }
 
         function downloadImage() {
