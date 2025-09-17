@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward Guillen - Static Card Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .vertical-card {
+            width: 600px;
+            height: 800px;
+            background: transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 60px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Replace this background with your image */
+        .vertical-card {
+            background-color: #888888;
+            background-image: url('/assets/home/hero.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .text-overlay {
+            z-index: 10;
+            position: relative;
+            text-align: left;
+        }
+
+        .name {
+            font-family: 'Manrope', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            margin-top: 8px;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+        }
+
+        .download-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="control-group">
+            <label for="backgroundImage">Background Image:</label>
+            <select id="backgroundImage" onchange="updateBackground()">
+                <option value="/assets/home/hero.jpg">Homepage</option>
+                <option value="/assets/prudential-hero1.jpg">Prudential</option>
+                <option value="/assets/arthe-hero1.jpg">Arthe</option>
+                <option value="/assets/onoctave-hero1.jpg">OnOctave</option>
+                <option value="/assets/wmg-hero1.jpg">Warner Music Group</option>
+                <option value="/assets/cisco-hero.jpg">Cisco</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="pageTitle">Page Title:</label>
+            <input type="text" id="pageTitle" value="Product Designer" onchange="updatePageTitle()">
+        </div>
+        
+        <div class="control-group">
+            <label for="projectName">Project Name (optional):</label>
+            <input type="text" id="projectName" value="" onchange="updateProjectName()">
+        </div>
+        
+        <button class="download-btn" onclick="downloadImage()">Download Image</button>
+    </div>
+
+    <div class="vertical-card" id="card">
+        <div class="text-overlay">
+            <div class="name">Edward Guillen</div>
+            <div class="title" id="title">Product Designer</div>
+            <div class="page-title" id="projectTitle" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateBackground() {
+            const select = document.getElementById('backgroundImage');
+            const card = document.getElementById('card');
+            card.style.backgroundImage = `url('${select.value}')`;
+        }
+
+        function updatePageTitle() {
+            const input = document.getElementById('pageTitle');
+            const title = document.getElementById('title');
+            title.textContent = input.value;
+        }
+
+        function updateProjectName() {
+            const input = document.getElementById('projectName');
+            const projectTitle = document.getElementById('projectTitle');
+            if (input.value.trim()) {
+                projectTitle.textContent = input.value;
+                projectTitle.style.display = 'block';
+            } else {
+                projectTitle.style.display = 'none';
+            }
+        }
+
+        function downloadImage() {
+            // Create a canvas element
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size to match the card
+            canvas.width = 600;
+            canvas.height = 800;
+            
+            // Create a temporary div with the same styling
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = document.getElementById('card').innerHTML;
+            tempDiv.style.position = 'absolute';
+            tempDiv.style.left = '-9999px';
+            tempDiv.style.width = '600px';
+            tempDiv.style.height = '800px';
+            tempDiv.style.backgroundImage = document.getElementById('card').style.backgroundImage;
+            tempDiv.style.backgroundSize = 'cover';
+            tempDiv.style.backgroundPosition = 'center';
+            tempDiv.style.backgroundRepeat = 'no-repeat';
+            tempDiv.style.borderRadius = '40px';
+            tempDiv.style.display = 'flex';
+            tempDiv.style.flexDirection = 'column';
+            tempDiv.style.justifyContent = 'flex-end';
+            tempDiv.style.padding = '60px';
+            tempDiv.style.fontFamily = "'Manrope', sans-serif";
+            document.body.appendChild(tempDiv);
+            
+            // Use html2canvas to capture the image
+            html2canvas(tempDiv, {
+                width: 600,
+                height: 800,
+                scale: 1
+            }).then(canvas => {
+                // Convert canvas to image and download
+                const link = document.createElement('a');
+                link.download = 'edward-guillen-social-preview.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+                
+                // Clean up
+                document.body.removeChild(tempDiv);
+            });
+        }
+    </script>
+    
+    <!-- Include html2canvas library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
