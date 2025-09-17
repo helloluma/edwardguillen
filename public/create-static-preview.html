@@ -135,7 +135,7 @@
         <div class="control-group">
             <label for="backgroundImage">Background Image:</label>
             <select id="backgroundImage" onchange="updateProject()">
-                <option value="/assets/home/hero.jpg">Homepage (Edward Guillen - Product Designer)</option>
+                <option value="/assets/edwardguillen-card.jpg">Homepage (Edward Guillen - Product Designer)</option>
                 <option value="/assets/prudential-hero1.jpg">Prudential (Onboarding Experience)</option>
                 <option value="/assets/arthe-hero1.jpg">Arthe (Platform Design)</option>
                 <option value="/assets/onoctave-hero1.jpg">OnOctave (Micro Transactions)</option>
@@ -146,23 +146,23 @@
         
         <div class="control-group">
             <label for="projectName">Project Name (main title):</label>
-            <input type="text" id="projectName" value="OnOctave" onchange="updateProjectName()">
+            <input type="text" id="projectName" value="Edward Guillen" onchange="updateProjectName()">
         </div>
         
         <div class="control-group">
             <label for="projectSubtitle">Project Subtitle:</label>
-            <input type="text" id="projectSubtitle" value="Micro Transactions" onchange="updateProjectSubtitle()">
+            <input type="text" id="projectSubtitle" value="Product Designer" onchange="updateProjectSubtitle()">
         </div>
         
         <button class="download-btn" onclick="downloadImage()">Download Image</button>
     </div>
 
-    <div class="vertical-card" id="card">
-        <div class="text-overlay">
-            <div class="name" id="projectName">OnOctave</div>
-            <div class="title" id="projectSubtitle">Micro Transactions</div>
+        <div class="vertical-card" id="card" style="background-image: url('/assets/edwardguillen-card.jpg');">
+            <div class="text-overlay">
+                <div class="name" id="projectName">Edward Guillen</div>
+                <div class="title" id="projectSubtitle">Product Designer</div>
+            </div>
         </div>
-    </div>
 
     <script>
         function updateProject() {
@@ -175,7 +175,7 @@
             const projectSubtitleInput = document.getElementById('projectSubtitle');
             
             switch(select.value) {
-                case '/assets/home/hero.jpg':
+                case '/assets/edwardguillen-card.jpg':
                     projectNameInput.value = 'Edward Guillen';
                     projectSubtitleInput.value = 'Product Designer';
                     break;
