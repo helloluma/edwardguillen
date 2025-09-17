@@ -3,182 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Preview Generator</title>
+    <title>Edward Guillen - Video Card Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            overflow: hidden;
+            background: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
-        
-        .social-card {
-            width: 1200px;
-            height: 630px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            padding: 60px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        .video-card {
+            width: 600px;
+            height: 800px;
             position: relative;
+            border-radius: 40px;
             overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: #888888;
         }
-        
-        .social-card::before {
-            content: '';
+
+        .background-video {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .content {
-            display: flex;
-            align-items: center;
             width: 100%;
-            position: relative;
-            z-index: 2;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
         }
-        
-        .text-content {
-            flex: 1;
-            color: white;
+
+        .text-overlay {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            right: 60px;
+            z-index: 10;
         }
-        
+
         .name {
-            font-size: 72px;
-            font-weight: 700;
-            margin: 0 0 20px 0;
-            background: linear-gradient(45deg, #fff, #a8e6cf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-        }
-        
-        .title {
-            font-size: 36px;
-            font-weight: 300;
-            margin: 0 0 30px 0;
-            color: #a8e6cf;
-            letter-spacing: 2px;
-        }
-        
-        .description {
-            font-size: 24px;
-            font-weight: 400;
-            margin: 0 0 20px 0;
-            color: #e0e0e0;
-            line-height: 1.4;
-        }
-        
-        .companies {
-            font-size: 18px;
-            color: #b0b0b0;
-            margin: 0;
-        }
-        
-        .avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin-left: 60px;
-            border: 4px solid rgba(255,255,255,0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .emoji {
+            font-family: 'Manrope', sans-serif;
             font-size: 48px;
-            margin-right: 20px;
-            display: inline-block;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
-        
-        .download-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+        .title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        .download-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
+
+        /* Video overlay for better text readability */
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+            z-index: 5;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <button class="download-btn" onclick="downloadImage()">Download Image</button>
-    
-    <div class="social-card" id="socialCard">
-        <div class="content">
-            <div class="text-content">
-                <h1 class="name">Edward Guillen</h1>
-                <h2 class="title">Product Designer</h2>
-                <p class="description">
-                    <span class="emoji">🚀</span>
-                    Creating digital experiences that matter
-                </p>
-                <p class="companies">
-                    Prudential • Cisco • Warner Music Group • Healthcare Startups
-                </p>
-            </div>
-            <img src="/assets/EdwardGuillen-headshot.jpg" alt="Edward Guillen" class="avatar">
+    <div class="video-card">
+        <video class="background-video" autoplay muted playsinline>
+            <source src="/assets/video/OnOctave-Tip-Success.mp4" type="video/mp4">
+            <!-- Fallback background color if video doesn't load -->
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="video-overlay"></div>
+        
+        <div class="text-overlay">
+            <div class="name">Edward Guillen</div>
+            <div class="title">Product Designer</div>
         </div>
     </div>
 
     <script>
-        function downloadImage() {
-            // Create a canvas element
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+        const video = document.querySelector('.background-video');
+        let isPlayingForward = true;
+
+        // Remove the loop attribute since we're handling it manually
+        video.loop = false;
+
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+        });
+
+        video.addEventListener('ended', function() {
+            if (isPlayingForward) {
+                // Video finished playing forward, now play backward
+                isPlayingForward = false;
+                playBackward();
+            }
+        });
+
+        function playBackward() {
+            video.pause();
             
-            // Set canvas size to match the social card
-            canvas.width = 1200;
-            canvas.height = 630;
-            
-            // Create a temporary div with the same styling
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = document.getElementById('socialCard').innerHTML;
-            tempDiv.style.position = 'absolute';
-            tempDiv.style.left = '-9999px';
-            tempDiv.style.width = '1200px';
-            tempDiv.style.height = '630px';
-            document.body.appendChild(tempDiv);
-            
-            // Use html2canvas to capture the image
-            html2canvas(tempDiv, {
-                width: 1200,
-                height: 630,
-                scale: 1
-            }).then(canvas => {
-                // Convert canvas to image and download
-                const link = document.createElement('a');
-                link.download = 'edward-guillen-social-preview.jpg';
-                link.href = canvas.toDataURL('image/jpeg', 0.9);
-                link.click();
-                
-                // Clean up
-                document.body.removeChild(tempDiv);
-            });
+            const backwardInterval = setInterval(() => {
+                if (video.currentTime <= 0) {
+                    // Reached the beginning, clear interval and play forward again
+                    clearInterval(backwardInterval);
+                    isPlayingForward = true;
+                    video.currentTime = 0;
+                    video.play();
+                } else {
+                    // Step backward frame by frame
+                    video.currentTime -= 1/30; // 30fps backward
+                }
+            }, 33); // ~30fps timing
         }
+
+        // Error handling
+        video.addEventListener('error', function(e) {
+            console.log('Video error:', e);
+            // Fallback to gray background if video fails
+            document.querySelector('.video-card').style.background = '#888888';
+        });
     </script>
-    
-    <!-- Include html2canvas library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
