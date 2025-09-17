@@ -16,7 +16,7 @@ export const metadata = {
     siteName: "Edward Guillen Portfolio",
     images: [
       {
-        url: "/assets/edward-guillen-portfolio-social.jpg",
+        url: "/home/edward-guillen-social-preview.jpg",
         width: 1200,
         height: 630,
         alt: "Edward Guillen - Product Designer Portfolio",
@@ -27,7 +27,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Edward Guillen | Product Designer Portfolio",
     description: "Product Designer with experience at Prudential, Cisco, Warner Music Group, and healthcare startups.",
-    images: ["/assets/edward-guillen-portfolio-social.jpg"],
+    images: ["/home/edward-guillen-social-preview.jpg"],
     creator: "@edwardguillen",
   },
   alternates: {
