@@ -4,10 +4,7 @@ import TopBar from "@/components/TopBar/TopBar";
 import Script from "next/script";
 
 export const metadata = {
-  title: {
-    default: "Edward Guillen | Product Designer Portfolio",
-    template: "%s | Edward Guillen",
-  },
+  title: "Edward Guillen | Product Designer Portfolio",
   description: "Product Designer specializing in UX/UI design with experience at Prudential, Cisco, Warner Music Group, and healthcare startups. View my portfolio of innovative digital experiences.",
   keywords: ["Edward Guillen", "product designer", "UX designer", "UI designer", "portfolio", "Prudential", "Cisco", "Warner Music Group", "healthcare", "digital design"],
   author: "Edward Guillen",
@@ -15,7 +12,7 @@ export const metadata = {
     title: "Edward Guillen | Product Designer Portfolio",
     description: "Product Designer with experience at Prudential, Cisco, Warner Music Group, and healthcare startups. View my portfolio of innovative digital experiences.",
     type: "website",
-    url: "https://edwardguillen.com",
+    url: "https://edwardguillen.com/",
     siteName: "Edward Guillen Portfolio",
     images: [
       {
@@ -32,6 +29,12 @@ export const metadata = {
     description: "Product Designer with experience at Prudential, Cisco, Warner Music Group, and healthcare startups.",
     images: ["/assets/edward-guillen-portfolio-social.jpg"],
     creator: "@edwardguillen",
+  },
+  alternates: {
+    canonical: "https://edwardguillen.com/",
+    languages: {
+      en: "https://edwardguillen.com/",
+    },
   },
   robots: "index, follow",
   metadataBase: new URL("https://edwardguillen.com"),
