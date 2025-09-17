@@ -25,9 +25,9 @@ const page = () => {
         <meta property="og:url" content="https://edwardguillen.com/cisco" />
         <meta property="og:title" content="Cisco Visual Storytelling - UX Design Case Study" />
         <meta property="og:description" content="A comprehensive UX design case study for Cisco's visual storytelling platform. Led design strategy to enhance user engagement and improve content discovery." />
-        <meta property="og:image" content="https://edwardguillen.com/assets/cisco-hero.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://edwardguillen.com/assets/cisco-social-preview.jpg" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="800" />
         <meta property="og:site_name" content="Edward Guillen Portfolio" />
         
         {/* Twitter */}
@@ -35,7 +35,7 @@ const page = () => {
         <meta property="twitter:url" content="https://edwardguillen.com/cisco" />
         <meta property="twitter:title" content="Cisco Visual Storytelling - UX Design Case Study" />
         <meta property="twitter:description" content="A comprehensive UX design case study for Cisco's visual storytelling platform. Led design strategy to enhance user engagement and improve content discovery." />
-        <meta property="twitter:image" content="https://edwardguillen.com/assets/cisco-hero.jpg" />
+        <meta property="twitter:image" content="https://edwardguillen.com/assets/cisco-social-preview.jpg" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />

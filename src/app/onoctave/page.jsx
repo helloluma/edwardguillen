@@ -24,9 +24,9 @@ const page = () => {
         <meta property="og:url" content="https://edwardguillen.com/onoctave" />
         <meta property="og:title" content="OnOctave Music Platform - UX Design Case Study" />
         <meta property="og:description" content="A comprehensive UX design case study for OnOctave, a music creation platform that puts creativity and collaboration at the center of the experience." />
-        <meta property="og:image" content="https://edwardguillen.com/assets/onoctave-hero1.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://edwardguillen.com/assets/onoctave-social-preview.jpg" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="800" />
         <meta property="og:site_name" content="Edward Guillen Portfolio" />
         
         {/* Twitter */}
@@ -34,7 +34,7 @@ const page = () => {
         <meta property="twitter:url" content="https://edwardguillen.com/onoctave" />
         <meta property="twitter:title" content="OnOctave Music Platform - UX Design Case Study" />
         <meta property="twitter:description" content="A comprehensive UX design case study for OnOctave, a music creation platform that puts creativity and collaboration at the center of the experience." />
-        <meta property="twitter:image" content="https://edwardguillen.com/assets/onoctave-hero1.jpg" />
+        <meta property="twitter:image" content="https://edwardguillen.com/assets/onoctave-social-preview.jpg" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />

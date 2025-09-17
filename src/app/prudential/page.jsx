@@ -25,9 +25,9 @@ const page = () => {
         <meta property="og:url" content="https://edwardguillen.com/prudential" />
         <meta property="og:title" content="Prudential Onboarding Experience - UX Design Case Study" />
         <meta property="og:description" content="A comprehensive UX design case study for Prudential's customer onboarding experience. Led design strategy to improve user engagement and reduce drop-off rates." />
-        <meta property="og:image" content="https://edwardguillen.com/assets/prudential-hero1.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://edwardguillen.com/assets/prudential-social-preview.jpg" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="800" />
         <meta property="og:site_name" content="Edward Guillen Portfolio" />
         
         {/* Twitter */}
@@ -35,7 +35,7 @@ const page = () => {
         <meta property="twitter:url" content="https://edwardguillen.com/prudential" />
         <meta property="twitter:title" content="Prudential Onboarding Experience - UX Design Case Study" />
         <meta property="twitter:description" content="A comprehensive UX design case study for Prudential's customer onboarding experience. Led design strategy to improve user engagement and reduce drop-off rates." />
-        <meta property="twitter:image" content="https://edwardguillen.com/assets/prudential-hero1.jpg" />
+        <meta property="twitter:image" content="https://edwardguillen.com/assets/prudential-social-preview.jpg" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />

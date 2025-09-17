@@ -17,8 +17,8 @@ export const metadata = {
     images: [
       {
         url: "/assets/edward-guillen-social-preview.jpg",
-        width: 1200,
-        height: 630,
+        width: 600,
+        height: 800,
         alt: "Edward Guillen - Product Designer creating digital experiences",
         type: "image/jpeg",
       },

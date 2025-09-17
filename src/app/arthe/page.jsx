@@ -24,9 +24,9 @@ const page = () => {
         <meta property="og:url" content="https://edwardguillen.com/arthe" />
         <meta property="og:title" content="Arthe - AI-Powered Healthcare Documentation Platform" />
         <meta property="og:description" content="A platform that turns the natural rhythm of patient care into seamless documentation. Led UX strategic innovation for a cross-functional healthcare team." />
-        <meta property="og:image" content="https://edwardguillen.com/assets/arthe-hero1.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://edwardguillen.com/assets/arthe-social-preview.jpg" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="800" />
         <meta property="og:site_name" content="Edward Guillen Portfolio" />
         
         {/* Twitter */}
@@ -34,7 +34,7 @@ const page = () => {
         <meta property="twitter:url" content="https://edwardguillen.com/arthe" />
         <meta property="twitter:title" content="Arthe - AI-Powered Healthcare Documentation Platform" />
         <meta property="twitter:description" content="A platform that turns the natural rhythm of patient care into seamless documentation. Led UX strategic innovation for a cross-functional healthcare team." />
-        <meta property="twitter:image" content="https://edwardguillen.com/assets/arthe-hero1.jpg" />
+        <meta property="twitter:image" content="https://edwardguillen.com/assets/arthe-social-preview.jpg" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />

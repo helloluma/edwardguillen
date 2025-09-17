@@ -24,9 +24,9 @@ const page = () => {
         <meta property="og:url" content="https://edwardguillen.com/warner-music-group" />
         <meta property="og:title" content="Warner Music Group - Music Platform UX Design" />
         <meta property="og:description" content="A comprehensive case study of Warner Music Group's music marketing platform design. Led product design for unified asset management, streamlined workflows, and global team collaboration." />
-        <meta property="og:image" content="https://edwardguillen.com/assets/wmg-hero1.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://edwardguillen.com/assets/wmg-social-preview.jpg" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="800" />
         <meta property="og:site_name" content="Edward Guillen Portfolio" />
         
         {/* Twitter */}
@@ -34,7 +34,7 @@ const page = () => {
         <meta property="twitter:url" content="https://edwardguillen.com/warner-music-group" />
         <meta property="twitter:title" content="Warner Music Group - Music Platform UX Design" />
         <meta property="twitter:description" content="A comprehensive case study of Warner Music Group's music marketing platform design. Led product design for unified asset management, streamlined workflows, and global team collaboration." />
-        <meta property="twitter:image" content="https://edwardguillen.com/assets/wmg-hero1.jpg" />
+        <meta property="twitter:image" content="https://edwardguillen.com/assets/wmg-social-preview.jpg" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />
