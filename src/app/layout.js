@@ -4,31 +4,33 @@ import TopBar from "@/components/TopBar/TopBar";
 import Script from "next/script";
 
 export const metadata = {
-  title: "Edward Guillen | Product Designer Portfolio",
+  title: {
+    default: "Edward Guillen | Product Designer Portfolio",
+    template: "%s | Edward Guillen",
+  },
   description: "Product Designer specializing in UX/UI design with experience at Prudential, Cisco, Warner Music Group, and healthcare startups. View my portfolio of innovative digital experiences.",
-  keywords: "Edward Guillen, product designer, UX designer, UI designer, portfolio, Prudential, Cisco, Warner Music Group, healthcare, digital design",
+  keywords: ["Edward Guillen", "product designer", "UX designer", "UI designer", "portfolio", "Prudential", "Cisco", "Warner Music Group", "healthcare", "digital design"],
   author: "Edward Guillen",
   openGraph: {
-    title: "Edward Guillen | Product Designer",
-    description: "🚀 Creating digital experiences at Prudential, Cisco, Warner Music Group & healthcare startups. View my innovative UX/UI design portfolio.",
+    title: "Edward Guillen | Product Designer Portfolio",
+    description: "Product Designer with experience at Prudential, Cisco, Warner Music Group, and healthcare startups. View my portfolio of innovative digital experiences.",
     type: "website",
-    url: "https://edwardguillen.com/",
+    url: "https://edwardguillen.com",
     siteName: "Edward Guillen Portfolio",
     images: [
       {
-        url: "/assets/edward-guillen-social-preview.jpg",
-        width: 600,
-        height: 800,
-        alt: "Edward Guillen - Product Designer creating digital experiences",
-        type: "image/jpeg",
+        url: "/assets/edward-guillen-portfolio-social.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Edward Guillen - Product Designer Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Edward Guillen | Product Designer",
-    description: "🚀 Creating digital experiences at Prudential, Cisco, Warner Music Group & healthcare startups.",
-    images: ["/assets/edward-guillen-social-preview.jpg"],
+    title: "Edward Guillen | Product Designer Portfolio",
+    description: "Product Designer with experience at Prudential, Cisco, Warner Music Group, and healthcare startups.",
+    images: ["/assets/edward-guillen-portfolio-social.jpg"],
     creator: "@edwardguillen",
   },
   robots: "index, follow",

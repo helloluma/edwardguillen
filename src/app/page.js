@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CustomEase from "gsap/CustomEase";
 import { useGSAP } from "@gsap/react";
 import { useLenis } from "lenis/react";
-import Head from "next/head";
+ 
 
 import Nav from "@/components/Nav/Nav";
 import ConditionalFooter from "@/components/ConditionalFooter/ConditionalFooter";
@@ -22,6 +22,7 @@ import Copy from "@/components/Copy/Copy";
 let isInitialLoad = true;
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
+
 
 export default function Home() {
   const tagsRef = useRef(null);
@@ -207,90 +208,45 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        {/* Primary Meta Tags */}
-        <title>Edward Guillen | Product Designer Portfolio - UX Engineer & AI Consultant</title>
-        <meta name="title" content="Edward Guillen | Product Designer Portfolio - UX Engineer & AI Consultant" />
-        <meta name="description" content="Product Designer with 13+ years experience at Prudential, Cisco, Warner Music Group, and healthcare startups. Specializing in UX/UI design, AI integration, and user-centered digital products." />
-        <meta name="keywords" content="Edward Guillen, product designer, UX designer, UI designer, portfolio, Prudential, Cisco, Warner Music Group, healthcare, digital design, AI consultant, UX engineer" />
-        <meta name="author" content="Edward Guillen" />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://edwardguillen.com/" />
-        <meta property="og:title" content="Edward Guillen | Product Designer Portfolio" />
-        <meta property="og:description" content="Product Designer with 13+ years experience at Prudential, Cisco, Warner Music Group, and healthcare startups. Specializing in UX/UI design, AI integration, and user-centered digital products." />
-        <meta property="og:image" content="https://edwardguillen.com/home/hero.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Edward Guillen Portfolio" />
-        
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://edwardguillen.com/" />
-        <meta property="twitter:title" content="Edward Guillen | Product Designer Portfolio" />
-        <meta property="twitter:description" content="Product Designer with 13+ years experience at Prudential, Cisco, Warner Music Group, and healthcare startups. Specializing in UX/UI design, AI integration, and user-centered digital products." />
-        <meta property="twitter:image" content="https://edwardguillen.com/home/hero.jpg" />
-        
-        {/* Additional Meta Tags */}
-        <meta name="robots" content="index, follow" />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Edward Guillen",
-              "jobTitle": "Product Designer, UX Engineer, AI Consultant",
-              "description": "Product Designer with 13+ years experience specializing in UX/UI design, AI integration, and user-centered digital products.",
-              "url": "https://edwardguillen.com",
-              "image": "https://edwardguillen.com/home/hero.jpg",
-              "sameAs": [
-                "https://dribbble.com/edwardguillen"
-              ],
-              "knowsAbout": [
-                "User Experience Design",
-                "User Interface Design", 
-                "Product Design",
-                "Artificial Intelligence",
-                "UX Strategy",
-                "Frontend Development",
-                "Motion Design",
-                "Healthcare Technology"
-              ],
-              "hasOccupation": {
-                "@type": "Occupation",
-                "name": "Product Designer",
-                "description": "Designing digital products that put people first, using research and creativity to solve real problems in simple, natural ways."
-              },
-              "worksFor": [
-                {
-                  "@type": "Organization",
-                  "name": "Prudential"
-                },
-                {
-                  "@type": "Organization", 
-                  "name": "Cisco"
-                },
-                {
-                  "@type": "Organization",
-                  "name": "Warner Music Group"
-                }
-              ],
-              "alumniOf": [
-                {
-                  "@type": "Organization",
-                  "name": "Tenet Healthcare"
-                }
-              ]
-            })
-          }}
-        />
-      </Head>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Edward Guillen",
+            "jobTitle": "Product Designer, UX Engineer, AI Consultant",
+            "description":
+              "Product Designer with 13+ years experience specializing in UX/UI design, AI integration, and user-centered digital products.",
+            "url": "https://edwardguillen.com",
+            "image": "https://edwardguillen.com/home/hero.jpg",
+            "sameAs": ["https://dribbble.com/edwardguillen"],
+            "knowsAbout": [
+              "User Experience Design",
+              "User Interface Design",
+              "Product Design",
+              "Artificial Intelligence",
+              "UX Strategy",
+              "Frontend Development",
+              "Motion Design",
+              "Healthcare Technology",
+            ],
+            "hasOccupation": {
+              "@type": "Occupation",
+              "name": "Product Designer",
+              "description":
+                "Designing digital products that put people first, using research and creativity to solve real problems in simple, natural ways.",
+            },
+            "worksFor": [
+              { "@type": "Organization", "name": "Prudential" },
+              { "@type": "Organization", "name": "Cisco" },
+              { "@type": "Organization", "name": "Warner Music Group" },
+            ],
+            "alumniOf": [{ "@type": "Organization", "name": "Tenet Healthcare" }],
+          }),
+        }}
+      />
       {showPreloader && (
         <div className="loader">
           <div className="overlay">
