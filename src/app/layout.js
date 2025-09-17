@@ -16,11 +16,11 @@ export const metadata = {
     siteName: "Edward Guillen Portfolio",
     images: [
       {
-        url: "/assets/edwardguillen-video-preview.mp4",
+        url: "/assets/edward-guillen-social-preview.jpg",
         width: 1200,
         height: 630,
         alt: "Edward Guillen - Product Designer creating digital experiences",
-        type: "video/mp4",
+        type: "image/jpeg",
       },
     ],
   },
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Edward Guillen | Product Designer",
     description: "🚀 Creating digital experiences at Prudential, Cisco, Warner Music Group & healthcare startups.",
-    images: ["/assets/edwardguillen-video-preview.mp4"],
+    images: ["/assets/edward-guillen-social-preview.jpg"],
     creator: "@edwardguillen",
   },
   robots: "index, follow",
