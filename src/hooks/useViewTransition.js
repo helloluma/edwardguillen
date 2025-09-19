@@ -51,10 +51,18 @@ export const useViewTransition = () => {
     router.push(href, {
       onTransitionReady: () => {
         slideInOut();
-        // Scroll to top after transition
+        // Scroll to top after transition - increased delay and added multiple attempts
         setTimeout(() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 100);
+        // Additional scroll to top after transition completes
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 2200);
+        // Final scroll to top to ensure it sticks
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 2500);
       },
       ...options,
     });

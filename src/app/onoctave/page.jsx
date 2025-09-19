@@ -1,6 +1,7 @@
 "use client";
 import "./onoctave.css";
 
+import { useEffect } from "react";
 import Nav from "@/components/Nav/Nav";
 import ConditionalFooter from "@/components/ConditionalFooter/ConditionalFooter";
 import CTAWindow from "@/components/CTAWindow/CTAWindow";
@@ -9,6 +10,11 @@ import AnimatedButton from "@/components/AnimatedButton/AnimatedButton";
 import Head from "next/head";
 
 const page = () => {
+  // Ensure page scrolls to top when loaded
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <>
       <Head>
